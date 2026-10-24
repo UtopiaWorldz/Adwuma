@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#002546">
+    <title>Explore Opportunities — Adwuma Nkabom</title>
+    <link rel="icon" type="image/png" href="Navy-lime%20handshake%20app%20icon.png">
+    <link rel="stylesheet" href="adwuma.css">
+
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="brand">
+            <img class="brand-logo" src="Navy-lime%20handshake%20app%20icon.png" alt="">
+            <span>Adwuma Nkabom</span>
+        </div>
+        <nav class="nav" aria-label="Main navigation">
+            <a href="app.html">Home</a>
+            <a href="explore.html" class="active">Explore</a>
+            <a href="post.html" >Post</a>
+            <a href="trial.html">Activity</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+        <div class="button-container">
+            <span class="user-chip" id="userChip">Hi, there</span>
+            <button class="ass ass-outline" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    
+
+    <main>
+        <div class="page-head">
+            <h1>Explore Opportunities</h1>
+            <p>Find opportunities and contact the people who posted them directly through their listed contact methods.</p>
+        </div>
+       <div class="post-container">
+      <form id="explore-form">
+      <div class="form-row">
+        <div class="form-group">
+            <label for="search">Search</label>
+            <input type="text" id="search" placeholder="Search for opportunities">       
+        </div>
+        <div class="form-group">
+            <label for="type">Opportunity type</label>
+            <select id="type">
+                <option>All</option>
+                <option>Paid Job</option>
+                <option>Volunteer</option>
+            </select>
+      </div>
+      <div class="form-group">
+            <label for="location">Location in Ghana</label>
+            <select id="location">
+                <option>All</option>
+                <option>Accra</option>
+                <option>Kumasi</option>
+                <option>Volta Region</option>
+                <option>Western Region</option>
+                <option>East Legon</option>
+            </select>
+        </div>
+      </div>
+        </form>
+      </div>
+      <section class="app-main">
+        
+
+        <section class="feed" id="feed">
+        </section>
+
+        <p class="feed-empty" id="noResults" hidden>No opportunities match your search.</p>
+        <p class="field-error" id="feedError" role="alert" hidden></p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Adwuma Nkabom · Connecting people to opportunities across Ghana.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="adwuma-config.js"></script>
+    <script src="adwuma.js"></script>
+    <script>
+        // Only signed-in users can see the app homepage
+        const raw = localStorage.getItem('adwuma_user');
+        if (!raw) {
+            window.location.replace('homepage.html');
+        } else {
+            const user = JSON.parse(raw);
+            document.getElementById('userChip').textContent = 'Hi, ' + (user.name || 'friend');
+        }
+
+        function logout() {
+            window.Adwuma.logout();
+        }
+
+        const feed = document.getElementById('feed');
+        const feedError = document.getElementById('feedError');
+        const savedPosts = JSON.parse(localStorage.getItem('adwuma_saved_posts') || '[]');
+        const searchInput = document.getElementById('search');
+        const typeFilter = document.getElementById('type');
+        const locationFilter = document.getElementById('location');
+        const noResults = document.getElementById('noResults');
+        const opportunityCards = [];
+
+        document.getElementById('explore-form').addEventListener('submit', event => {
+            event.preventDefault();
+        });
+
+        function addToSearch(post, card) {
+            card.dataset.opportunityCard = '';
+            card.dataset.searchText = Object.entries(post)
+                .filter(([key, value]) => key !== 'authorEmail' && value !== null && value !== undefined)
+                .map(([, value]) => value)
+                .join(' ')
+                .toLocaleLowerCase();
+            card.dataset.type = (post.type || '').toLocaleLowerCase();
+            card.dataset.location = (post.location || '').toLocaleLowerCase();
+            opportunityCards.push(card);
+        }
+
+        function filterOpportunities() {
+            const query = searchInput.value.trim().toLocaleLowerCase();
+            const selectedType = typeFilter.value.toLocaleLowerCase();
+            const selectedLocation = locationFilter.value.toLocaleLowerCase();
+            let visibleCount = 0;
+
+            opportunityCards.forEach(card => {
+                const matchesSearch = !query || card.dataset.searchText.includes(query);
+                const matchesType = selectedType === 'all' || card.dataset.type === selectedType;
+                const matchesLocation = selectedLocation === 'all' ||
+                    card.dataset.location === selectedLocation;
+                card.hidden = !(matchesSearch && matchesType && matchesLocation);
+                if (!card.hidden) visibleCount += 1;
+            });
+
+            noResults.hidden = visibleCount > 0;
+        }
+
+        searchInput.addEventListener('input', filterOpportunities);
+        typeFilter.addEventListener('change', filterOpportunities);
+        locationFilter.addEventListener('change', filterOpportunities);
+
+        function setSaveButton(button, post) {
+            const isSaved = savedPosts.some(saved => String(saved.id) === String(post.id));
+            button.textContent = isSaved ? 'Saved ✓' : 'Save';
+            button.disabled = isSaved;
+            button.onclick = () => {
+                if (savedPosts.some(saved => String(saved.id) === String(post.id))) return;
+                savedPosts.unshift(post);
+                localStorage.setItem('adwuma_saved_posts', JSON.stringify(savedPosts));
+                button.textContent = 'Saved ✓';
+                button.disabled = true;
+            };
+        }
+
+        // Show a short "just posted" highlight on the newest post
+        window.Adwuma.loadOpportunities().then(posts => {
+            noResults.textContent = posts.length
+                ? 'No opportunities match your search.'
+                : 'No opportunities have been posted yet.';
+            posts.forEach((post, index) => {
+            const card = document.createElement('article');
+            card.className = 'card feed-card';
+            addToSearch(post, card);
+
+            const tag = document.createElement('span');
+            tag.className = 'mini-tag ' + (post.type === 'Volunteer' ? 'vol' : 'paid');
+            tag.textContent = post.type;
+
+            const h3 = document.createElement('h3');
+            h3.textContent = post.title;
+
+            const meta = document.createElement('p');
+            meta.className = 'feed-meta';
+            meta.textContent = [post.location, post.schedule, post.pay].filter(Boolean).join(' · ');
+
+            const desc = document.createElement('p');
+            desc.textContent = post.description;
+
+            card.append(tag, h3, meta, desc);
+
+            if (post.responsibilities) {
+                const resp = document.createElement('p');
+                resp.textContent = 'Responsibilities: ' + post.responsibilities;
+                card.appendChild(resp);
+            }
+
+            window.Adwuma.appendContactLinks(card, post);
+
+            const foot = document.createElement('p');
+            foot.className = 'feed-foot';
+            foot.textContent = 'Posted by ' + post.author + ' · ' + post.postedAt;
+            card.appendChild(foot);
+
+            const save = document.createElement('button');
+            save.className = 'ass feed-btn';
+            setSaveButton(save, post);
+            const actions = document.createElement('div');
+            actions.className = 'feed-actions';
+            actions.append(save);
+            card.appendChild(actions);
+
+            if (index === 0) {
+                const newBadge = document.createElement('span');
+                newBadge.className = 'new-badge';
+                newBadge.textContent = 'New';
+                card.appendChild(newBadge);
+            }
+
+            feed.appendChild(card);
+            });
+            filterOpportunities();
+        }).catch(error => {
+            noResults.hidden = true;
+            feedError.textContent = error.message || 'Unable to load opportunities.';
+            feedError.hidden = false;
+        });
+    </script>
+    </main>
+
+</body>
+</html>
+ 

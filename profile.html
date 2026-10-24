@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#002546">
+    <title>Your Profile — Adwuma Nkabom</title>
+    <link rel="icon" type="image/png" href="Navy-lime%20handshake%20app%20icon.png">
+    <link rel="stylesheet" href="adwuma.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="brand">
+            <img class="brand-logo" src="Navy-lime%20handshake%20app%20icon.png" alt="">
+            <span>Adwuma Nkabom</span>
+        </div>
+        <nav class="nav" aria-label="Main navigation">
+            <a href="app.html">Home</a>
+            <a href="explore.html">Explore</a>
+            <a href="post.html">Post</a>
+            <a href="trial.html">Activity</a>
+            <a href="profile.html" class="active" aria-current="page">Profile</a>
+        </nav>
+        <div class="button-container">
+            <span class="user-chip" id="userChip">Hi, there</span>
+            <button class="ass ass-outline" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <main class="profile-main">
+        <div class="page-head profile-page-head">
+            <h1>Your professional profile</h1>
+            <p>Show people what you do, what you have learned and the opportunities you are looking for.</p>
+        </div>
+
+        <div class="profile-layout">
+            <div class="profile-content">
+                <section class="profile-card" aria-labelledby="profileName">
+                    <div class="profile-cover"></div>
+                    <div class="profile-summary">
+                        <div class="profile-avatar" id="profileAvatar" aria-hidden="true">AN</div>
+                        <div class="profile-summary-copy">
+                            <h2 id="profileName">Your name</h2>
+                            <p id="profileHeadline">Add a professional headline</p>
+                            <p class="profile-location" id="profileLocation">Add your location</p>
+                        </div>
+                        <a href="#editProfile" class="profile-edit-link">Edit profile</a>
+                    </div>
+                    <div class="profile-skills-preview" id="profileSkillsPreview" aria-label="Skills"></div>
+                </section>
+
+                <form class="profile-form-card" id="profileForm">
+                    <div class="profile-section-heading" id="editProfile">
+                        <div>
+                            <h2>Edit your profile</h2>
+                            <p>Build a profile that helps employers and organisations understand your strengths.</p>
+                        </div>
+                    </div>
+
+                    <section class="profile-form-section" aria-labelledby="basicInfoHeading">
+                        <h3 id="basicInfoHeading">Basic information</h3>
+                        <div class="form-row profile-form-row">
+                            <div class="form-group">
+                                <label for="profileFullName">Full name</label>
+                                <input type="text" id="profileFullName" name="name" autocomplete="name" maxlength="80" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="profileEmail">Email</label>
+                                <input type="email" id="profileEmail" name="email" autocomplete="email" readonly>
+                                <span class="profile-field-hint">Your sign-in email can't be changed here.</span>
+                            </div>
+                        </div>
+                        <div class="form-row profile-form-row">
+                            <div class="form-group">
+                                <label for="profileRole">I am here as</label>
+                                <select id="profileRole" name="role">
+                                    <option value="">Choose a profile type</option>
+                                    <option>Job seeker</option>
+                                    <option>Employer</option>
+                                    <option>Volunteer</option>
+                                    <option>Job seeker and volunteer</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="profileLocationInput">Location in Ghana</label>
+                                <input type="text" id="profileLocationInput" name="location" placeholder="e.g. Accra, Greater Accra" autocomplete="address-level2" maxlength="100">
+                            </div>
+                        </div>
+                        <div class="form-row profile-form-row">
+                            <div class="form-group">
+                                <label for="profileHeadlineInput">Professional headline</label>
+                                <input type="text" id="profileHeadlineInput" name="headline" placeholder="e.g. Customer service professional | Available for work" maxlength="120">
+                            </div>
+                            <div class="form-group">
+                                <label for="profileAvailability">Availability</label>
+                                <select id="profileAvailability" name="availability">
+                                    <option value="">Choose your availability</option>
+                                    <option>Looking for work</option>
+                                    <option>Open to opportunities</option>
+                                    <option>Available to volunteer</option>
+                                    <option>Not looking right now</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="profile-form-section" aria-labelledby="aboutHeading">
+                        <h3 id="aboutHeading">About</h3>
+                        <div class="form-row profile-form-row">
+                            <div class="form-group">
+                                <label for="profileAbout">Introduce yourself</label>
+                                <textarea id="profileAbout" name="about" rows="4" maxlength="600" placeholder="Share your experience, strengths and the kind of work or community projects you care about."></textarea>
+                                <span class="profile-field-hint">A few clear sentences help people get to know you.</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="profile-form-section" aria-labelledby="experienceHeading">
+                        <h3 id="experienceHeading">Experience</h3>
+                        <div class="form-row profile-form-row">
+                            <div class="form-group">
+                                <label for="profileExperience">Work or volunteer experience</label>
+                                <textarea id="profileExperience" name="experience" rows="4" maxlength="600" placeholder="Role, organisation, dates and what you achieved. Include informal work or community experience too."></textarea>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="profile-form-section" aria-labelledby="educationHeading">
+                        <h3 id="educationHeading">Education</h3>
+                        <div class="form-row profile-form-row">
+                            <div class="form-group">
+                                <label for="profileEducation">Education and training</label>
+                                <textarea id="profileEducation" name="education" rows="3" maxlength="400" placeholder="School, qualification, course or relevant training."></textarea>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="profile-form-section" aria-labelledby="skillsHeading">
+                        <h3 id="skillsHeading">Skills</h3>
+                        <div class="form-row profile-form-row">
+                            <div class="form-group">
+                                <label for="profileSkills">Your skills</label>
+                                <input type="text" id="profileSkills" name="skills" maxlength="300" placeholder="e.g. Customer service, Microsoft Excel, teamwork">
+                                <span class="profile-field-hint">Separate skills with commas.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="profileWebsite">Website or portfolio <span class="profile-optional">(optional)</span></label>
+                                <input type="url" id="profileWebsite" name="website" placeholder="https://example.com" autocomplete="url">
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="profile-save-row">
+                        <p class="profile-save-status" id="profileSaveStatus" role="status" aria-live="polite"></p>
+                        <button type="submit" class="ass profile-save-button">Save profile</button>
+                    </div>
+                </form>
+            </div>
+
+            <aside class="profile-sidebar">
+                <section class="profile-side-card" aria-labelledby="completionHeading">
+                    <h2 id="completionHeading">Profile strength</h2>
+                    <p id="completionText">Complete more sections to make your profile stand out.</p>
+                    <div class="profile-progress-track" role="progressbar" aria-label="Profile completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="profileProgress">
+                        <span id="profileProgressBar"></span>
+                    </div>
+                    <strong class="profile-progress-label" id="profileProgressLabel">0% complete</strong>
+                    <ul class="profile-checklist" id="profileChecklist">
+                        <li data-field="headline">Professional headline</li>
+                        <li data-field="location">Location</li>
+                        <li data-field="about">About you</li>
+                        <li data-field="experience">Experience</li>
+                        <li data-field="education">Education</li>
+                        <li data-field="skills">Skills</li>
+                    </ul>
+                </section>
+
+                <section class="profile-side-card profile-tip-card">
+                    <span class="profile-tip-icon" aria-hidden="true">✦</span>
+                    <h2>Make your profile work for you</h2>
+                    <p>Use specific skills and examples. You can include informal work, volunteering and training as well as paid roles.</p>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Adwuma Nkabom · Connecting people to opportunities across Ghana.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="adwuma-config.js"></script>
+    <script src="adwuma.js"></script>
+    <script>
+        const rawUser = localStorage.getItem('adwuma_user');
+        if (!rawUser) {
+            window.location.replace('homepage.html');
+        } else {
+            const user = JSON.parse(rawUser);
+            const defaultName = user.name || user.email.split('@')[0];
+            const profileStorageKey = 'adwuma_profile:' + user.email.trim().toLowerCase();
+            const storedProfile = localStorage.getItem(profileStorageKey);
+            let savedProfile = storedProfile ? JSON.parse(storedProfile) : {};
+            if (!storedProfile) {
+                const legacyProfile = JSON.parse(localStorage.getItem('adwuma_profile') || '{}');
+                if (legacyProfile.name && legacyProfile.name.trim().toLowerCase() === defaultName.trim().toLowerCase()) {
+                    savedProfile = legacyProfile;
+                    localStorage.setItem(profileStorageKey, JSON.stringify(savedProfile));
+                }
+            }
+            const form = document.getElementById('profileForm');
+            const fields = ['name', 'role', 'location', 'headline', 'availability', 'about', 'experience', 'education', 'skills', 'website'];
+            const defaults = {
+                name: defaultName,
+                role: '',
+                location: '',
+                headline: '',
+                availability: '',
+                about: '',
+                experience: '',
+                education: '',
+                skills: '',
+                website: ''
+            };
+
+            document.getElementById('userChip').textContent = 'Hi, ' + (user.name || 'friend');
+            document.getElementById('profileEmail').value = user.email;
+
+            fields.forEach(field => {
+                form.elements[field].value = savedProfile[field] || defaults[field];
+            });
+
+            function updateProfilePreview() {
+                const name = form.elements.name.value.trim() || 'Your name';
+                const headline = form.elements.headline.value.trim() || 'Add a professional headline';
+                const location = form.elements.location.value.trim() || 'Add your location';
+                const initials = name.split(/\s+/).filter(Boolean).slice(0, 2).map(part => part[0]).join('').toUpperCase() || 'AN';
+
+                document.getElementById('profileName').textContent = name;
+                document.getElementById('profileHeadline').textContent = headline;
+                document.getElementById('profileLocation').textContent = location;
+                document.getElementById('profileAvatar').textContent = initials;
+                document.getElementById('userChip').textContent = 'Hi, ' + (form.elements.name.value.trim() || 'friend');
+                document.getElementById('profileSaveStatus').textContent = '';
+
+                const skillContainer = document.getElementById('profileSkillsPreview');
+                skillContainer.replaceChildren();
+                form.elements.skills.value.split(',').map(skill => skill.trim()).filter(Boolean).slice(0, 8).forEach(skill => {
+                    const tag = document.createElement('span');
+                    tag.className = 'profile-skill-tag';
+                    tag.textContent = skill;
+                    skillContainer.appendChild(tag);
+                });
+
+                updateProfileStrength();
+            }
+
+            function updateProfileStrength() {
+                const completeFields = ['headline', 'location', 'about', 'experience', 'education', 'skills']
+                    .filter(field => form.elements[field].value.trim()).length;
+                const percentage = Math.round(completeFields / 6 * 100);
+                const progress = document.getElementById('profileProgress');
+
+                progress.setAttribute('aria-valuenow', String(percentage));
+                document.getElementById('profileProgressBar').style.width = percentage + '%';
+                document.getElementById('profileProgressLabel').textContent = percentage + '% complete';
+                document.getElementById('completionText').textContent = percentage === 100
+                    ? 'Your profile has all the key details.'
+                    : 'Complete more sections to make your profile stand out.';
+
+                document.querySelectorAll('#profileChecklist li').forEach(item => {
+                    const isComplete = Boolean(form.elements[item.dataset.field].value.trim());
+                    item.classList.toggle('complete', isComplete);
+                });
+            }
+
+            form.addEventListener('input', () => {
+                form.elements.name.setCustomValidity('');
+                updateProfilePreview();
+            });
+            form.addEventListener('change', updateProfilePreview);
+            form.addEventListener('submit', event => {
+                event.preventDefault();
+                const profile = {};
+                fields.forEach(field => {
+                    profile[field] = form.elements[field].value.trim();
+                });
+                if (!profile.name) {
+                    form.elements.name.setCustomValidity('Enter your name.');
+                    form.elements.name.reportValidity();
+                    return;
+                }
+                localStorage.setItem(profileStorageKey, JSON.stringify(profile));
+
+                user.name = profile.name;
+                localStorage.setItem('adwuma_user', JSON.stringify(user));
+                document.getElementById('profileSaveStatus').textContent = 'Your profile has been saved.';
+            });
+
+            updateProfilePreview();
+        }
+
+        function logout() {
+            window.Adwuma.logout();
+        }
+    </script>
+
+</body>
+</html>

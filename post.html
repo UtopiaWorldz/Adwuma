@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#002546">
+    <title>Post an Opportunity — Adwuma Nkabom</title>
+    <link rel="icon" type="image/png" href="Navy-lime%20handshake%20app%20icon.png">
+    <link rel="stylesheet" href="adwuma.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="brand">
+            <img class="brand-logo" src="Navy-lime%20handshake%20app%20icon.png" alt="">
+            <span>Adwuma Nkabom</span>
+        </div>
+        <nav class="nav" aria-label="Main navigation">
+            <a href="app.html">Home</a>
+            <a href="explore.html">Explore</a>
+            <a href="post.html" class="active">Post</a>
+            <a href="trial.html">Activity</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+        <div class="button-container">
+            <span class="user-chip" id="userChip">Hi, there</span>
+            <button class="ass ass-outline" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-head">
+            <h1>Post an Opportunity</h1>
+            <p>Share an opportunity with the community. Published listings appear for everyone who visits Explore.</p>
+        </div>
+
+        <div class="post-container">
+            <form id="postForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="type">Opportunity type</label>
+                        <select id="type">
+                            <option>Paid Job</option>
+                            <option>Volunteer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location in Ghana</label>
+                        <select id="location">
+                            <option>Accra</option>
+                            <option>Kumasi</option>
+                            <option>Volta Region</option>
+                            <option>Western Region</option>
+                            <option>East Legon</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="title">Opportunity Title</label>
+                        <input type="text" id="title" placeholder="e.g. Warehouse Assistant">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" rows="4" placeholder="What is this opportunity about?"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="responsibilities">Responsibilities</label>
+                        <textarea id="responsibilities" rows="4" placeholder="What will the person be doing?"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="schedule">Schedule</label>
+                        <input type="text" id="schedule" placeholder="e.g. Mon–Fri, 8am–4pm">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="whatsapp">WhatsApp number</label>
+                        <input type="tel" id="whatsapp" autocomplete="tel" placeholder="e.g. 024 000 0000 or +233 24 000 0000">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone number</label>
+                        <input type="tel" id="phone" autocomplete="tel" placeholder="e.g. 024 000 0000">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="instagram">Instagram</label>
+                        <input type="text" id="instagram" placeholder="Username or Instagram profile URL">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" id="email" autocomplete="email" placeholder="name@example.com">
+                    </div>
+                </div>
+                <p class="contact-help">Add at least one way for people to reach you. These details will be visible to everyone.</p>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pay">Pay or compensation details</label>
+                        <input type="text" id="pay" placeholder="e.g. GHS 1,500/month or Volunteer (lunch provided)">
+                    </div>
+                </div>
+
+                <button type="submit" class="ass" id="submitBtn">Publish Opportunity</button>
+                <p class="field-error" id="postError" role="alert" hidden></p>
+            </form>
+
+            <!-- Success message shown after a post is saved -->
+            <div class="post-success" id="postSuccess" hidden>
+                <div class="post-success-icon">✅</div>
+                <h3>Opportunity submitted!</h3>
+                <p>Your listing is published and now visible to everyone on Explore.</p>
+                <div class="post-success-actions">
+                    <a href="explore.html" class="btn-dark">View on Explore</a>
+                    <button class="ass ass-outline" onclick="resetForm()">Post another</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Adwuma Nkabom · Connecting people to opportunities across Ghana.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="adwuma-config.js"></script>
+    <script src="adwuma.js"></script>
+    <script>
+        // Same sign-in guard as the app homepage
+        const raw = localStorage.getItem('adwuma_user');
+        if (!raw) {
+            window.location.replace('homepage.html');
+        } else {
+            const user = JSON.parse(raw);
+            document.getElementById('userChip').textContent = 'Hi, ' + (user.name || 'friend');
+        }
+
+        function logout() {
+            window.Adwuma.logout();
+        }
+
+        // ---------- Post form: validation + save ----------
+        const form = document.getElementById('postForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Show an error message under a field
+        function setFieldError(input, message) {
+            const group = input.closest('.form-group');
+            let err = group.querySelector('.field-error');
+            if (!err) {
+                err = document.createElement('p');
+                err.className = 'field-error';
+                group.appendChild(err);
+            }
+            err.textContent = message || '';
+            err.hidden = !message;
+            input.style.borderColor = message ? '#c0392b' : '';
+        }
+
+        // Clear one field's error as the user types
+        form.querySelectorAll('input, select, textarea').forEach(el => {
+            el.addEventListener('input', () => setFieldError(el, ''));
+        });
+
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
+
+            const type = document.getElementById('type');
+            const location = document.getElementById('location');
+            const title = document.getElementById('title');
+            const description = document.getElementById('description');
+            const responsibilities = document.getElementById('responsibilities');
+            const schedule = document.getElementById('schedule');
+            const whatsapp = document.getElementById('whatsapp');
+            const instagram = document.getElementById('instagram');
+            const email = document.getElementById('email');
+            const phone = document.getElementById('phone');
+            const pay = document.getElementById('pay');
+
+            // Validate required fields
+            let valid = true;
+            [[title, 'Please enter an opportunity title.'],
+             [description, 'Please add a description.']
+            ].forEach(([el, msg]) => {
+                const empty = !el.value.trim();
+                setFieldError(el, empty ? msg : '');
+                if (empty) valid = false;
+            });
+
+            if (!valid) {
+                form.querySelector('.field-error:not([hidden])')
+                    .closest('.form-group').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            const contactInputs = [whatsapp, instagram, email, phone];
+            const hasContact = contactInputs.some(input => input.value.trim());
+            contactInputs.forEach(input => setFieldError(input, ''));
+            if (!hasContact) {
+                setFieldError(whatsapp, 'Add at least one contact method.');
+                whatsapp.closest('.form-group').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+            for (const input of [whatsapp, phone]) {
+                const number = input.value.trim();
+                if (number && (!/^\+?[\d()\s.-]+$/.test(number) || number.replace(/\D/g, '').length < 7)) {
+                    setFieldError(input, 'Enter a valid phone number with at least 7 digits.');
+                    input.focus();
+                    return;
+                }
+            }
+            const instagramValue = instagram.value.trim();
+            if (instagramValue) {
+                const validHandle = value => /^[A-Za-z0-9._]{1,30}$/.test(value.replace(/^@/, ''));
+                let validInstagram = validHandle(instagramValue);
+                if (/^https?:\/\//i.test(instagramValue)) {
+                    try {
+                        const profile = new URL(instagramValue);
+                        validInstagram = /^(www\.)?instagram\.com$/i.test(profile.hostname) &&
+                            validHandle(profile.pathname.split('/').filter(Boolean)[0] || '');
+                    } catch {
+                        validInstagram = false;
+                    }
+                }
+                if (!validInstagram) {
+                    setFieldError(instagram, 'Enter an Instagram username or instagram.com profile URL.');
+                    instagram.focus();
+                    return;
+                }
+            }
+
+            const opportunity = {
+                type: type.value,
+                location: location.value,
+                title: title.value.trim(),
+                description: description.value.trim(),
+                responsibilities: responsibilities.value.trim(),
+                schedule: schedule.value.trim(),
+                whatsapp: whatsapp.value.trim(),
+                instagram: instagramValue,
+                email: email.value.trim(),
+                phone: phone.value.trim(),
+                pay: pay.value.trim()
+            };
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Publishing…';
+            const postError = document.getElementById('postError');
+            postError.hidden = true;
+            try {
+                await window.Adwuma.createOpportunity(opportunity);
+            } catch (error) {
+                postError.textContent = error.message || 'Unable to publish this opportunity.';
+                postError.hidden = false;
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Publish Opportunity';
+                return;
+            }
+
+            // Show the success state
+            form.style.display = 'none';
+            document.getElementById('postSuccess').hidden = false;
+        });
+
+        function resetForm() {
+            form.reset();
+            form.querySelectorAll('.field-error').forEach(err => err.remove());
+            form.querySelectorAll('input, select, textarea').forEach(el => el.style.borderColor = '');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Publish Opportunity';
+            document.getElementById('postError').hidden = true;
+            form.style.display = '';
+            document.getElementById('postSuccess').hidden = true;
+            form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+
+</body>
+</html>

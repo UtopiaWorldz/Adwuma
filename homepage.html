@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#002546">
+    <meta name="description" content="Adwuma Nkabom connects people across Ghana to paid jobs and volunteer opportunities — all in one place.">
+    <title>Adwuma Nkabom — Find Work &amp; Opportunities in Ghana</title>
+    <link rel="icon" type="image/png" href="Navy-lime%20handshake%20app%20icon.png">
+    <link rel="stylesheet" href="adwuma.css">
+    <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+    <!-- ============ PUBLIC HEADER ============ -->
+    <header class="site-header">
+        <a class="brand" href="homepage.html">
+            <img class="brand-logo" src="Navy-lime%20handshake%20app%20icon.png" alt="">
+            <span>Adwuma Nkabom</span>
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+            <a href="#home">Home</a>
+            <a href="#features">Opportunities</a>
+            <a href="#how">How It Works</a>
+            <a href="#contact">Join</a>
+        </nav>
+        <div class="button-container">
+            <button class="ass ass-outline" onclick="openAuth('login')">Log in</button>
+            <button class="ass" onclick="openAuth('signup')">Join free</button>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ============ HERO ============ -->
+        <section class="hero-shell" id="home">
+            <div class="hero">
+                <div class="hero-text">
+                    <p class="hero-tag">Ghana's opportunity network</p>
+                    <h1>Find work.<br><span>Build Ghana.</span></h1>
+                    <p class="hero-sub">
+                        Paid jobs and volunteer roles from every corner of Ghana — collected in one
+                        place, with a direct line to the person hiring. No middlemen, no noise.
+                    </p>
+                    <div class="hero-actions">
+                        <button class="ass hero-btn" onclick="openAuth('signup')">Get started free</button>
+                        <button class="ass ass-outline hero-btn" onclick="openAuth('login')">I already have an account</button>
+                    </div>
+                    <div class="hero-stats">
+                        <div><strong>aiming for</strong></div>
+                        <div><strong> 1,200+</strong><span>Open roles</span></div>
+                        <div><strong>16</strong><span>Regions covered</span></div>
+                        <div><strong>4,800+</strong><span>People connected</span></div>
+                    </div>
+                </div>
+
+                <div class="hero-card" aria-hidden="true">
+                    <div class="mini-card">
+                        <span class="mini-tag paid">Paid job</span>
+                        <h3>Warehouse Assistant</h3>
+                        <p>Tema · Full-time · GHS 2,400/mo</p>
+                    </div>
+                    <div class="mini-card">
+                        <span class="mini-tag vol">Volunteer</span>
+                        <h3>Community Teaching</h3>
+                        <p>Kumasi · Weekends · Training provided</p>
+                    </div>
+                    <div class="mini-card">
+                        <span class="mini-tag paid">Paid job</span>
+                        <h3>Delivery Rider</h3>
+                        <p>Accra · Flexible · Weekly pay</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="marquee" aria-hidden="true">
+                <div class="marquee-track">
+                    <span>Paid jobs</span><span>Volunteer roles</span><span>Accra</span><span>Kumasi</span>
+                    <span>Volta</span><span>Western region</span><span>Direct contact</span><span>No fees</span>
+                    <span>Paid jobs</span><span>Volunteer roles</span><span>Accra</span><span>Kumasi</span>
+                    <span>Volta</span><span>Western region</span><span>Direct contact</span><span>No fees</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ WHY ============ -->
+        <section class="highlight reveal">
+            <div class="highlight-inner">
+                <div class="highlight-copy">
+                    <p class="eyebrow">Why Adwuma Nkabom</p>
+                    <h2>We saw a gap <em>we could close.</em></h2>
+                    <p>
+                        Talented people across Ghana were ready to work, but the opportunities were
+                        scattered across WhatsApp groups, noticeboards and word of mouth. We built a
+                        single, trusted place where job seekers, employers and volunteer organisations
+                        find each other — quickly and directly.
+                    </p>
+                </div>
+                <div class="highlight-actions">
+                    <button class="ass" onclick="openAuth('signup')">Post an opportunity</button>
+                    <button class="ass ass-outline" onclick="openAuth('signup')">Find work near you</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ AIMING FOR ============ -->
+        <section class="aim-section reveal">
+            <div class="aim-inner">
+                <p class="eyebrow">Aiming for</p>
+                <h2>Every opportunity<br>counts.</h2>
+                <p class="aim-lead">
+                    We're building a Ghana where finding honest work or giving back shouldn't be
+                    a game of chance — it should be a click away.
+                </p>
+                <div class="aim-grid">
+                    <article class="aim-card aim-card--lime">
+                        <span class="aim-card-label">Purpose</span>
+                        <h3>Connect directly</h3>
+                        <p>Cut out the middleman. Talk straight to the person hiring or the person looking for help.</p>
+                    </article>
+                    <article class="aim-card aim-card--violet">
+                        <span class="aim-card-label">Reach</span>
+                        <h3>Serve all Ghana</h3>
+                        <p>From Accra to the Upper Regions, opportunities belong in every community.</p>
+                    </article>
+                    <article class="aim-card aim-card--pink">
+                        <span class="aim-card-label">Impact</span>
+                        <h3>Lift each other up</h3>
+                        <p>Paid work and volunteerism go hand in hand to build stronger communities.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ STATEMENT ============ -->
+        <section class="statement reveal">
+            <div class="statement-inner">
+                <h2>Every <em>job</em> and <em>volunteer role</em> in one place.</h2>
+                <p>
+                    From warehouse shifts in Tema to weekend teaching in Kumasi, Adwuma Nkabom
+                    brings paid work and community service together — filtered by where you are
+                    and what you can do.
+                </p>
+            </div>
+        </section>
+
+        <!-- ============ FEATURES ============ -->
+        <section class="features" id="features">
+            <div class="section-head reveal">
+                <h2>Built for how<br>Ghana works.</h2>
+                <p class="section-sub">Everything you need to find work or give your time to a good cause — without a recruitment agency in between.</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon">💼</div>
+                    <h3>Paid Jobs</h3>
+                    <p>Browse listings from employers across Ghana and reach them through their preferred contact method.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Volunteer Roles</h3>
+                    <p>Give back to your community with volunteer opportunities that match your skills and schedule.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">📍</div>
+                    <h3>Local First</h3>
+                    <p>Filter by location — Accra, Kumasi, Volta, Western Region and more — to find work close to home.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">✅</div>
+                    <h3>Shared Listings</h3>
+                    <p>Every new opportunity is published to the community so everyone can discover it.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Track Activity</h3>
+                    <p>Save opportunities you want to come back to and contact their posters directly.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">📣</div>
+                    <h3>Post Opportunities</h3>
+                    <p>Employers and organisations can share openings and reach people who are ready to work.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ HOW IT WORKS ============ -->
+        <section class="how" id="how">
+            <div class="how-inner">
+                <p class="eyebrow reveal">How it works</p>
+                <h2 class="reveal">Three steps.<br>One opportunity.</h2>
+                <div class="steps">
+                    <div class="step reveal">
+                        <span class="step-num">1</span>
+                        <h3>Create an account</h3>
+                        <p>Sign up with your email to join the Adwuma Nkabom community. It takes less than a minute.</p>
+                    </div>
+                    <div class="step reveal">
+                        <span class="step-num">2</span>
+                        <h3>Explore opportunities</h3>
+                        <p>Search paid jobs and volunteer roles by type and location, then save the ones you like.</p>
+                    </div>
+                    <div class="step reveal">
+                        <span class="step-num">3</span>
+                        <h3>Connect directly</h3>
+                        <p>Reach opportunity posters through WhatsApp, Instagram, email or phone. No middleman.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ CTA ============ -->
+        <section class="cta" id="contact">
+            <h2 class="reveal">Ready to get started?</h2>
+            <p class="reveal">Join Adwuma Nkabom today and take the next step in your career or community.</p>
+            <button class="ass cta-btn reveal" onclick="openAuth('signup')">Join free today</button>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div>
+                <div class="footer-brand">
+                    <img class="brand-logo" src="Navy-lime%20handshake%20app%20icon.png" alt="">
+                    <span>Adwuma Nkabom</span>
+                </div>
+                <p>Connecting people to meaningful work and volunteer opportunities across Ghana — directly, fairly and without fees.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Explore</h3>
+                <a href="explore.html">Paid jobs</a>
+                <a href="explore.html">Volunteer roles</a>
+                <a href="post.html">Post an opportunity</a>
+                <a href="#how">How it works</a>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <a href="#features">Why Adwuma</a>
+                <a href="#contact">Join the network</a>
+                <a href="mailto:hello@adwumanakabom.com">Contact us</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Adwuma Nkabom · Connecting people to opportunities across Ghana.</p>
+        </div>
+    </footer>
+
+    <!-- ============ AUTH MODAL ============ -->
+    <div class="auth-overlay" id="authOverlay" hidden>
+        <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+            <button class="auth-close" onclick="closeAuth()" aria-label="Close">&times;</button>
+
+            <h2 id="authTitle">Welcome back</h2>
+            <p class="auth-sub" id="authSub">Log in to continue to Adwuma Nkabom.</p>
+
+            <div class="auth-tabs">
+                <button id="tabLogin" class="auth-tab active" onclick="switchAuth('login')">Login</button>
+                <button id="tabSignup" class="auth-tab" onclick="switchAuth('signup')">Sign Up</button>
+            </div>
+
+            <form id="authForm">
+                <div class="form-group auth-group" id="nameGroup" hidden>
+                    <label for="authName">Full name</label>
+                    <input type="text" id="authName" placeholder="e.g. Ama Mensah" autocomplete="name">
+                </div>
+                <div class="form-group auth-group">
+                    <label for="authEmail">Email</label>
+                    <input type="email" id="authEmail" placeholder="you@example.com" required autocomplete="email">
+                </div>
+                <div class="form-group auth-group">
+                    <label for="authPassword">Password</label>
+                    <input type="password" id="authPassword" placeholder="Enter your password" required minlength="6" autocomplete="current-password">
+                </div>
+                <p class="auth-error" id="authError" hidden></p>
+                <button type="submit" class="ass auth-submit" id="authSubmit">Log In</button>
+            </form>
+            <div class="auth-divider"><span>or</span></div>
+            <button type="button" class="auth-google" id="googleSignIn">
+                <span class="auth-google-mark" aria-hidden="true">G</span>
+                Continue with Google
+            </button>
+
+            <p class="auth-note">Use your account to post and explore opportunities shared across the community.</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="adwuma-config.js"></script>
+    <script src="adwuma.js"></script>
+    <script>
+        // ---------- Scroll reveal ----------
+        (function () {
+            const items = document.querySelectorAll('.reveal');
+            if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                items.forEach(item => item.classList.add('in'));
+                return;
+            }
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+            items.forEach(item => observer.observe(item));
+        })();
+
+        // ---------- Account sign-in ----------
+        const overlay = document.getElementById('authOverlay');
+        const form = document.getElementById('authForm');
+        const googleButton = document.getElementById('googleSignIn');
+        let mode = 'login';
+
+        function openAuth(m) {
+            switchAuth(m);
+            overlay.hidden = false;
+            document.getElementById('authEmail').focus();
+        }
+
+        function closeAuth() {
+            overlay.hidden = true;
+            document.getElementById('authError').hidden = true;
+        }
+
+        function switchAuth(m) {
+            mode = m;
+            const isSignup = m === 'signup';
+            document.getElementById('authTitle').textContent = isSignup ? 'Create your account' : 'Welcome back';
+            document.getElementById('authSub').textContent = isSignup
+                ? 'Join Adwuma Nkabom and start exploring opportunities.'
+                : 'Log in to continue to Adwuma Nkabom.';
+            document.getElementById('nameGroup').hidden = !isSignup;
+            document.getElementById('tabLogin').classList.toggle('active', !isSignup);
+            document.getElementById('tabSignup').classList.toggle('active', isSignup);
+            document.getElementById('authSubmit').textContent = isSignup ? 'Sign Up' : 'Log In';
+            document.getElementById('authError').hidden = true;
+        }
+
+        // Close modal when clicking outside or pressing Escape
+        overlay.addEventListener('click', e => { if (e.target === overlay) closeAuth(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape' && !overlay.hidden) closeAuth(); });
+
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
+            const email = document.getElementById('authEmail').value.trim();
+            const name = document.getElementById('authName').value.trim();
+            const password = document.getElementById('authPassword').value;
+
+            if (!email.includes('@')) {
+                return showError('Please enter a valid email address.');
+            }
+            if (password.length < 6) {
+                return showError('Password must be at least 6 characters.');
+            }
+
+            const submitButton = document.getElementById('authSubmit');
+            submitButton.disabled = true;
+            try {
+                const supabase = window.Adwuma.getClient();
+                let user;
+                if (mode === 'signup') {
+                    const { data, error } = await supabase.auth.signUp({
+                        email,
+                        password,
+                        options: { data: { name: name || email.split('@')[0] } }
+                    });
+                    if (error) throw error;
+                    if (!data.session || !data.user) {
+                        showError('Account created. Check your email to confirm your account, then log in.');
+                        return;
+                    }
+                    user = data.user;
+                } else {
+                    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+                    if (error) throw error;
+                    user = data.user;
+                }
+
+                localStorage.setItem('adwuma_user', JSON.stringify({
+                    name: window.Adwuma.getDisplayName(user),
+                    email: user.email
+                }));
+                window.location.href = 'app.html';
+            } catch (error) {
+                showError(error.message || 'Unable to sign in. Please try again.');
+            } finally {
+                submitButton.disabled = false;
+            }
+        });
+
+        googleButton.addEventListener('click', async () => {
+            if (!['http:', 'https:'].includes(window.location.protocol)) {
+                showError('Google sign-in requires the site to be opened from its hosted URL or localhost, not a file on your computer.');
+                return;
+            }
+
+            googleButton.disabled = true;
+            document.getElementById('authError').hidden = true;
+            try {
+                const redirectTo = new URL('homepage.html', window.location.href).href;
+                const { error } = await window.Adwuma.getClient().auth.signInWithOAuth({
+                    provider: 'google',
+                    options: { redirectTo }
+                });
+                if (error) throw error;
+            } catch (error) {
+                showError(error.message || 'Unable to start Google sign-in. Please try again.');
+                googleButton.disabled = false;
+            }
+        });
+
+        function showError(msg) {
+            const el = document.getElementById('authError');
+            el.textContent = msg;
+            el.hidden = false;
+        }
+
+        // Restore only a real Supabase session; old browser-only demo logins are not accounts.
+        async function restoreAuthSession() {
+            const config = window.ADWUMA_CONFIG || {};
+            if (!config.supabaseUrl || !config.supabaseAnonKey) {
+                localStorage.removeItem('adwuma_user');
+                return;
+            }
+            try {
+                const { data, error } = await window.Adwuma.getClient().auth.getSession();
+                if (error) throw error;
+                if (!data.session) {
+                    localStorage.removeItem('adwuma_user');
+                    return;
+                }
+                const user = data.session.user;
+                localStorage.setItem('adwuma_user', JSON.stringify({
+                    name: window.Adwuma.getDisplayName(user),
+                    email: user.email
+                }));
+                window.location.replace('app.html');
+            } catch (error) {
+                localStorage.removeItem('adwuma_user');
+                console.error('Unable to restore the sign-in session:', error);
+            }
+        }
+
+        restoreAuthSession();
+    </script>
+
+</body>
+</html>

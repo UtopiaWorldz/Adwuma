@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#002546">
+    <title>Home — Adwuma Nkabom</title>
+    <link rel="icon" type="image/png" href="Navy-lime%20handshake%20app%20icon.png">
+    <link rel="stylesheet" href="adwuma.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="brand">
+            <img class="brand-logo" src="Navy-lime%20handshake%20app%20icon.png" alt="">
+            <span>Adwuma Nkabom</span>
+        </div>
+        <nav class="nav" aria-label="Main navigation">
+            <a href="app.html" class="active">Home</a>
+            <a href="explore.html">Explore</a>
+            <a href="post.html">Post</a>
+            <a href="trial.html">Activity</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+        <div class="button-container">
+            <span class="user-chip" id="userChip">Hi, there</span>
+            <button class="ass ass-outline" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <div class="page-head">
+            <h1>Welcome back, <span id="userName">friend</span> 👋</h1>
+            <p>See the latest opportunities shared with everyone on Adwuma Nkabom.</p>
+        </div>
+
+        <section class="feed" id="feed" aria-live="polite"></section>
+        <p class="feed-empty" id="feedMessage" role="status">Loading opportunities…</p>
+        <p class="field-error" id="feedError" role="alert" hidden></p>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Adwuma Nkabom · Connecting people to opportunities across Ghana.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="adwuma-config.js"></script>
+    <script src="adwuma.js"></script>
+    <script>
+        // Only signed-in users can see the app homepage
+        const raw = localStorage.getItem('adwuma_user');
+        if (!raw) {
+            window.location.replace('homepage.html');
+        } else {
+            const user = JSON.parse(raw);
+            document.getElementById('userName').textContent = user.name || 'friend';
+            document.getElementById('userChip').textContent = 'Hi, ' + (user.name || 'friend');
+        }
+
+        function logout() {
+            window.Adwuma.logout();
+        }
+
+        const feed = document.getElementById('feed');
+        const feedMessage = document.getElementById('feedMessage');
+        const feedError = document.getElementById('feedError');
+        const savedPosts = JSON.parse(localStorage.getItem('adwuma_saved_posts') || '[]');
+
+        function saveOpportunity(button, opportunity) {
+            const isSaved = savedPosts.some(post => String(post.id) === String(opportunity.id));
+            button.textContent = isSaved ? 'Saved ✓' : 'Save';
+            button.disabled = isSaved;
+            button.addEventListener('click', () => {
+                if (savedPosts.some(post => String(post.id) === String(opportunity.id))) return;
+                savedPosts.unshift(opportunity);
+                localStorage.setItem('adwuma_saved_posts', JSON.stringify(savedPosts));
+                button.textContent = 'Saved ✓';
+                button.disabled = true;
+            });
+        }
+
+        window.Adwuma.loadOpportunities().then(opportunities => {
+            feed.replaceChildren();
+            feedMessage.hidden = opportunities.length > 0;
+            feedMessage.textContent = opportunities.length ? '' : 'No opportunities have been posted yet.';
+
+            opportunities.forEach(opportunity => {
+                const card = document.createElement('article');
+                card.className = 'card feed-card';
+                const tag = document.createElement('span');
+                tag.className = 'mini-tag ' + (opportunity.type === 'Volunteer' ? 'vol' : 'paid');
+                tag.textContent = opportunity.type;
+                const title = document.createElement('h3');
+                title.textContent = opportunity.title;
+                const meta = document.createElement('p');
+                meta.className = 'feed-meta';
+                meta.textContent = [opportunity.location, opportunity.schedule, opportunity.pay]
+                    .filter(Boolean).join(' · ');
+                const description = document.createElement('p');
+                description.textContent = opportunity.description;
+                const author = document.createElement('p');
+                author.className = 'feed-foot';
+                author.textContent = 'Posted by ' + opportunity.author + ' · ' + opportunity.postedAt;
+                const saveButton = document.createElement('button');
+                saveButton.className = 'ass feed-btn';
+                saveOpportunity(saveButton, opportunity);
+                card.append(tag, title, meta, description);
+                if (opportunity.responsibilities) {
+                    const responsibilities = document.createElement('p');
+                    responsibilities.textContent = 'Responsibilities: ' + opportunity.responsibilities;
+                    card.appendChild(responsibilities);
+                }
+                card.appendChild(author);
+                window.Adwuma.appendContactLinks(card, opportunity);
+                card.appendChild(saveButton);
+                feed.appendChild(card);
+            });
+        }).catch(error => {
+            feedMessage.hidden = true;
+            feedError.textContent = error.message || 'Unable to load opportunities.';
+            feedError.hidden = false;
+        });
+
+    </script>
+
+</body>
+</html>
